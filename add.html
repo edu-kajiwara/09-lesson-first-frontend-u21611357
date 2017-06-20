@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー追加</title>
+</head>
+<body>
+    <h2>Create User Form</h2>
+
+    <form name="mainForm" style="borber:1px solid #ccc">
+        <div class="container">
+            <label><b>ID</b></label>
+            <input type="text" placeholder="Enter ID" name="_id" required>
+
+            <label><b>Name</b></label>
+            <input type="text" placeholder="Enter Name" name="_name" required>
+
+            <div class="clearfix">
+                <button type="button" class="cancelbtn" id="cancel_button">Cancel</button>
+                <button type="button" class="signupbtn" id="create_user">create</button>
+            </div>
+        </div>
+    </form>
+</body>
+<script languate="javascript">
+    window.onload = function(){
+        const button = document.getElementById('create_user');
+        const cancel_button = document.getElementById('cancel_button');
+        const  form = document.forms.mainForm;
+        const url = "http://localhost:8080/user";
+        button.onclick = (function () {
+            var user = {};
+            user['user_id'] = form._id.value;
+            user['user_name'] = form._name.value;
+            fetch(url,{
+                method: 'PUT',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(user)}).then(function() {
+                location.href = "./index.html";
+                });
+            });
+        cancel_button.onclick =(function () {
+            location.href = "./index.html";
+        });
+    };
+</script>
+</html>
